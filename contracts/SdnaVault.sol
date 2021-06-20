@@ -821,7 +821,7 @@ interface IMasterChef {
 
     function leaveStaking(uint256 _amount) external;
 
-    function pendingCake(uint256 _pid, address _user) external view returns (uint256);
+    function pendingSdna(uint256 _pid, address _user) external view returns (uint256);
 
     function userInfo(uint256 _pid, address _user) external view returns (uint256, uint256);
 
@@ -1071,7 +1071,7 @@ contract SdnaVault is Ownable, Pausable {
      * @return Expected reward to collect in CAKE
      */
     function calculateHarvestCakeRewards() external view returns (uint256) {
-        uint256 amount = IMasterChef(masterchef).pendingCake(0, address(this));
+        uint256 amount = IMasterChef(masterchef).pendingSdna(0, address(this));
         amount = amount.add(available());
         uint256 currentCallFee = amount.mul(callFee).div(10000);
 
@@ -1083,7 +1083,7 @@ contract SdnaVault is Ownable, Pausable {
      * @return Returns total pending cake rewards
      */
     function calculateTotalPendingCakeRewards() external view returns (uint256) {
-        uint256 amount = IMasterChef(masterchef).pendingCake(0, address(this));
+        uint256 amount = IMasterChef(masterchef).pendingSdna(0, address(this));
         amount = amount.add(available());
 
         return amount;
